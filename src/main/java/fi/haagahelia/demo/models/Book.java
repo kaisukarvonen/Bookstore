@@ -22,6 +22,16 @@ public class Book {
 	}
 	
 	
+	public long getId() {
+		return id;
+	}
+
+
+	public void setId(long id) {
+		this.id = id;
+	}
+
+
 	public Book(String title, String author, int year, String isbn, double price) {
 		this.title = title;
 		this.author = author;

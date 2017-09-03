@@ -1,8 +1,10 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
+
 <head>
 <title>Bookstore</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link type="text/css" rel="stylesheet" href="css/bootstrap.min.css" th:href="@{css/bootstrap.min.css}" />
 <style>
 p {
 margin:1px;
@@ -15,21 +17,27 @@ font-size:19px;
 
 <h2>Bookstore</h2>
 
-<table>
+<table class="table table-striped">
 <tr>
 		<td th:text="Author" />
 		<td th:text="Title" />
-		<td th:text="ISBN" />
 		<td th:text="Year" />
+		<td th:text="ISBN" />
+		<td th:text="Price" />
+		<td/>
 	</tr>
 	
 	<tr th:each="book : ${books}">
 		<td th:text="${book.author}" />
 		<td th:text="${book.title}" />
-		<td th:text="${book.isbn}" />
 		<td th:text="${book.year}" />
+		<td th:text="${book.isbn}" />
+		<td th:text="${book.price}" />
+		<td><a th:href="@{/delete/{id}(id=${book.id})}" class="btn btn-danger">Delete</a></td>
 	</tr>
 </table>
+
+<a href="/add" class="btn btn-success">Add a new book</a>
 
 
 </body>
