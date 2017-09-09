@@ -4,9 +4,12 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.security.crypto.bcrypt.BCrypt;
 
 import fi.haagahelia.demo.models.Book;
+import fi.haagahelia.demo.models.User;
 import fi.haagahelia.demo.repositories.BookRepository;
+import fi.haagahelia.demo.repositories.UserRepository;
 
 @SpringBootApplication
 public class BookstoreApplication {
@@ -17,14 +20,15 @@ public class BookstoreApplication {
 	}
 	
 	@Bean
-	public CommandLineRunner demo(BookRepository repository) {
+	public CommandLineRunner demo(BookRepository bookrepo, UserRepository userrepo) {
 		return (args) -> {
-			repository.save(new Book("Examples of Life", "John Doe", 2002, "ABCD123", 12));
-			repository.save(new Book("Fine dining", "Jamie Oliver", 2012, "CCFF002", 19.5));
-			repository.save(new Book("This is great", "Someone Awesome", 2010, "CCFF037", 19.5));
-			for (Book b : repository.findAll()) {
-				System.out.println(b.toString());
-			}
+			bookrepo.save(new Book("Examples of Life", "John Doe", 2002, "ABCD123", 12));
+			bookrepo.save(new Book("Fine dining", "Jamie Oliver", 2012, "CCFF002", 19.5));
+			bookrepo.save(new Book("This is great", "Someone Awesome", 2010, "CCFF037", 19.5));
+			userrepo.save(new User("user1", BCrypt.hashpw("userpw", BCrypt.gensalt()),"USER"));
+			userrepo.save(new User("admin1", BCrypt.hashpw("adminpw", BCrypt.gensalt()),"ADMIN"));
+			userrepo.save(new User("admin2", BCrypt.hashpw("adminpw", BCrypt.gensalt()),"ADMIN"));
+			
 		};
 		
 	}

@@ -19,6 +19,11 @@ public class BookController {
 	@Autowired
 	BookRepository bookrepo;
 	
+	@RequestMapping(value="/login")
+	public String login() {
+		return "login";
+	}
+	
 	@RequestMapping(value="/index")
 	public String index() {
 		List<Book> books = bookrepo.findAll(); 
