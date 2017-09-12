@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import fi.haagahelia.demo.models.Book;
 import fi.haagahelia.demo.repositories.BookRepository;
@@ -24,6 +25,17 @@ public class BookController {
 		return "login";
 	}
 	
+    @RequestMapping(value="/books", method=RequestMethod.GET)
+    public @ResponseBody List<Book> bookListRest() {	
+        return (List<Book>) bookrepo.findAll();
+    }    
+    
+    @RequestMapping(value="/book/{id}", method = RequestMethod.GET)
+    public @ResponseBody Book findBookById(@PathVariable("id") Long id) {	
+    	return bookrepo.findOne(id);
+    }    
+    
+    
 	@RequestMapping(value="/index")
 	public String index() {
 		List<Book> books = bookrepo.findAll(); 
