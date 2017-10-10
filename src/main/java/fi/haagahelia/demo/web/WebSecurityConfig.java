@@ -21,6 +21,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http
         .authorizeRequests()
         	.antMatchers("/css/**").permitAll() // Enable css when logged out
+        	.antMatchers("/books").permitAll()
+        	.antMatchers("/booklist").permitAll()
+        	.antMatchers("/addBook").permitAll()
+        	.antMatchers("/delete/**").permitAll()
         	.anyRequest().authenticated()
         	.and()
       .formLogin()
@@ -28,6 +32,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
           .defaultSuccessUrl("/booklist")
           .permitAll()
           .and()
+      .csrf().disable()
       .logout()
           .permitAll();
     }
